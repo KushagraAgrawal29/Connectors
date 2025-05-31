@@ -14,7 +14,7 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     password: { type: String, required: true },
-    isVerified: { type: Boolean, default: false },
+    isVerified: { type: Boolean, default: false }, 
   },
   {
     timestamps: true,

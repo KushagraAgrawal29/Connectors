@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { getMongoConnection } from "@/lib/mongo";
 import bcrypt from 'bcryptjs'
+import { User } from "@/models/user";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -21,7 +22,10 @@ export const authOptions: NextAuthOptions = {
           }
 
           const connection = await getMongoConnection();
-          const User = connection.model("User");
+
+          if (connection) {
+            console.log("DB connected successfully")
+          }
 
           const user = await User.findOne({ email });
           if (!user || user.password !== password) {
@@ -43,7 +47,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account, profile }) {
         const connection = await getMongoConnection();
-        const User = connection.model("User");
+        // const User = connection.model("User");
+        if (connection) {
+            console.log("DB connected successfully")
+        }
         if (account?.provider === "google") {
             const existingUser = await User.findOne({
                 where: {
