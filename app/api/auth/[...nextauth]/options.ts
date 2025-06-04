@@ -17,6 +17,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req): Promise<any> {
         try {
           const { email, password } = credentials || {};
+
           if (!email || !password) {
             throw new Error("Email and password are required");
           }
@@ -28,8 +29,14 @@ export const authOptions: NextAuthOptions = {
           }
 
           const user = await User.findOne({ email });
-          if (!user || user.password !== password) {
-            throw new Error("Invalid email or password");
+          if (!user) {
+            throw new Error("User doesn't exist please sign-up first");
+          }
+
+          const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+          if(!isPasswordCorrect){
+            throw new Error("Incorrect password")
           }
 
           return { id: user._id, email: user.email };
@@ -51,6 +58,7 @@ export const authOptions: NextAuthOptions = {
         if (connection) {
             console.log("DB connected successfully")
         }
+
         if (account?.provider === "google") {
             const existingUser = await User.findOne({
                 where: {
@@ -82,6 +90,7 @@ export const authOptions: NextAuthOptions = {
                 }
             }
         }
+        return true;
     },
   },
   pages: {
