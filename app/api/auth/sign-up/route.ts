@@ -3,15 +3,45 @@ import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextResponse, NextRequest } from "next/server";
 
+interface SignupRequest {
+  email: string
+  password: string
+  username: string
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { username, email, password } = await req.json();
+    const { username, email, password } : SignupRequest = await req.json();
 
     if (!username || !email || !password) {
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
     }
 
     const connection = await getMongoConnection();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!emailRegex.test(email)) {
+      return NextResponse.json({
+        message: "Invalid email address",
+      },{
+        status: 400,
+      })
+    }
+
+     if (password.length < 6) {
+      return NextResponse.json(
+        { success: false, message: 'Password must be at least 6 characters long' },
+        { status: 400 }
+      );
+    }
+
+    if (username.length < 3) {
+      return NextResponse.json(
+        { success: false, message: 'Username must be at least 3 characters long' },
+        { status: 400 }
+      );
+    }
 
     const existingUser = await User.findOne({ email });
 
