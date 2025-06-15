@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Star, Zap, Shield, TrendingUp } from "lucide-react";
+import { ArrowRight, Star, BluetoothConnected, Shield, TrendingUp } from "lucide-react";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -14,10 +14,10 @@ export default function HomePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
+                <BluetoothConnected className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Nexus
+                Connectors
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
@@ -59,14 +59,14 @@ export default function HomePage() {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent leading-tight">
             Transform Your
             <br />
-            <span className="relative">
-              Business Today
+            {/* <span className="relative text-gray-950"> */}
+              Connection Over Cloud
               <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transform scale-x-0 animate-pulse"></div>
-            </span>
+            {/* </span> */}
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Unlock unprecedented growth with our cutting-edge platform. Join
-            thousands of companies already transforming their operations.
+            Get into cloud in real-time users to have your Cloud Connection stronger than ever before helping out each other 
+            with ideas, quizes and real time troubleshooting with bug-fixes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link href="/signup">
@@ -140,7 +140,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Zap className="w-8 h-8" />,
+                icon: <BluetoothConnected className="w-8 h-8" />,
                 title: "Lightning Fast",
                 description:
                   "Built for speed with cutting-edge technology and optimized performance.",
@@ -283,7 +283,7 @@ export default function HomePage() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-white" />
+                  <BluetoothConnected className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold">Nexus</span>
               </div>
