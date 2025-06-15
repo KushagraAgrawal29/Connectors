@@ -2,7 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { getMongoConnection } from "@/lib/mongo";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 import User from "@/models/User";
 
 export const authOptions: NextAuthOptions = {
@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
           const connection = await getMongoConnection();
 
           if (connection) {
-            console.log("DB connected successfully")
+            console.log("DB connected successfully");
           }
 
           const user = await User.findOne({ email });
@@ -33,10 +33,13 @@ export const authOptions: NextAuthOptions = {
             throw new Error("User doesn't exist please sign-up first");
           }
 
-          const isPasswordCorrect = await bcrypt.compare(password, user.password);
+          const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+          );
 
-          if(!isPasswordCorrect){
-            throw new Error("Incorrect password")
+          if (!isPasswordCorrect) {
+            throw new Error("Incorrect password");
           }
 
           return { id: user._id, email: user.email };
@@ -53,44 +56,45 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-        const connection = await getMongoConnection();
-        // const User = connection.model("User");
-        if (connection) {
-            console.log("DB connected successfully")
-        }
+      const connection = await getMongoConnection();
+      // const User = connection.model("User");
+      if (connection) {
+        console.log("DB connected successfully");
+      }
 
-        if (account?.provider === "google") {
-            const existingUser = await User.findOne({
-                where: {
-                    email: user.email!
-                }
+      if (account?.provider === "google") {
+        const existingUser = await User.findOne({
+          where: {
+            email: user.email!,
+          },
+        });
+        if (existingUser) {
+          user.id = existingUser?.id.toString();
+          user.name = existingUser.name;
+          user.isVerified = existingUser.isVerified;
+          return true;
+        } else {
+          try {
+            const newUser = await User.create({
+              email: user.email,
+              name: user.name || "New User",
+              isVerified: true,
+              password: await bcrypt.hash(
+                Math.random().toString(36).slice(2) + Date.now().toString(),
+                10
+              ),
             });
-            if (existingUser) {
-                user.id = existingUser?.id.toString();
-                user.name = existingUser.name;
-                user.isVerified = existingUser.isVerified;
-                return true;
-            }
-            else {
-                try {
-                    const newUser = await User.create({
-                        email: user.email,
-                        name: user.name || "New User",
-                        isVerified: true,
-                        password: await bcrypt.hash(Math.random().toString(36).slice(2) + Date.now().toString(), 10),
-                    });
-                    user.id = newUser._id.toString();
-                    user.name = newUser.name;
-                    user.isVerified = true;
-                    return true;
-                }
-                catch (error: any) {
-                    console.error("Error creating user from Google auth:", error);
-                    return false;
-                }
-            }
+            user.id = newUser._id.toString();
+            user.name = newUser.name;
+            user.isVerified = true;
+            return true;
+          } catch (error: any) {
+            console.error("Error creating user from Google auth:", error);
+            return false;
+          }
         }
-        return true;
+      }
+      return true;
     },
   },
   pages: {
