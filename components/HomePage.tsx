@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star, BluetoothConnected, Shield, TrendingUp } from "lucide-react";
 import Image from "next/image";
+import connections from "@/public/images/connections.jpg"
 
 export default function HomePage() {
   return (
@@ -69,12 +70,12 @@ export default function HomePage() {
             with ideas, quizes and real time troubleshooting with bug-fixes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link href="/signup">
+            <Link href="/sign-up">
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 px-8 py-4 text-lg"
               >
-                Start Free Trial
+                Get Started
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
@@ -92,7 +93,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl blur-3xl"></div>
             <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200/50 p-2">
               <Image
-                src="/placeholder.svg?height=600&width=800"
+                src={connections}
                 alt="Dashboard Preview"
                 width={800}
                 height={600}
@@ -132,8 +133,8 @@ export default function HomePage() {
               Powerful Features
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Everything you need to scale your business, built with
-              enterprise-grade security and performance.
+              Everything you need to connect your Cloud and help and learn from other over their
+              associated clouds is our motto.
             </p>
           </div>
 
