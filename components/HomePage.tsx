@@ -270,7 +270,7 @@ export default function HomePage() {
               size="lg"
               className="bg-white text-blue-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 px-8 py-4 text-lg font-semibold"
             >
-              Start Your Free Trial
+               Get your cloud connected
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
@@ -289,7 +289,7 @@ export default function HomePage() {
                 <span className="text-xl font-bold">Nexus</span>
               </div>
               <p className="text-gray-400">
-                Transforming businesses worldwide with cutting-edge technology.
+                Transforming cloud learning and troubleshooting easy worldwide with cutting-edge technology.
               </p>
             </div>
             <div>
@@ -354,7 +354,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Nexus. All rights reserved.</p>
+            <p>&copy; 2025 Connectors. All rights reserved.</p>
           </div>
         </div>
       </footer>
